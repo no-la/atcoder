@@ -94,7 +94,8 @@ if ($Args.Count -eq 0) {
 $file_path_components = $Args[0] -split "\\"
 $solved_file = $file_path_components[-1]
 $solved_file_components = $solved_file -split "\."
-$problem_number = $solved_file_components[0].Substring(0, $solved_file_components[0].Length-1)
+$problem_number = $file_path_components[-2].Substring(0, $file_path_components[-2].Length-1)
+$problem_alphabet = $file_path_components[-2].Substring($file_path_components[-2].Length-1, 1)  # Example: a
 $solved_file_name = $solved_file_components[0]  # 拡張子を除いたもの
 $solved_file_extension = $solved_file_components[1]  # 拡張子
 Write-Host "solved_file : $solved_file"
@@ -102,7 +103,6 @@ Write-Host "problem_number : $problem_number"
 Write-Host "solved_file_name : $solved_file_name"
 Write-Host "solved_file_extension : $solved_file_extension"
 
-$problem_alphabet = $solved_file_name.Substring($solved_file_name.Length - 1, 1)  # Example: a
 Write-Host "problem_alphabet : $problem_alphabet"
 
 $test_directory = (($file_path_components[0..($file_path_components.Length-2)]) -join "/") + "/samples/"
