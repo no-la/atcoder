@@ -17,6 +17,6 @@ def delete_empty_file(folder_path):
                 print(f"ファイル削除中にエラーが発生しました: {file_path}, エラー: {e}")
 
 if __name__ == '__main__':
-    folder_pathes = ["contest", "practice"]
+    folder_pathes = ["contest"]
     for p in folder_pathes:
         delete_empty_file(p)
