@@ -105,7 +105,7 @@ Write-Host "solved_file_extension : $solved_file_extension"
 $problem_alphabet = $solved_file_name.Substring($solved_file_name.Length - 1, 1)  # Example: a
 Write-Host "problem_alphabet : $problem_alphabet"
 
-$test_directory = "sample_tests/$problem_number/$problem_alphabet/"
+$test_directory = (($file_path_components[0..($file_path_components.Length-2)]) -join "/") + "/samples/"
 Write-Host "test_directory : $test_directory"
 
 $atcoder_url = "https://atcoder.jp/contests/$problem_number/tasks/${problem_number}_$problem_alphabet"
