@@ -1,7 +1,14 @@
 import os
+import glob
 
 
+def delete_folder_with_empty_file(folder_path):
+    files = glob.glob(f"{folder_path}/**/*")
+    print(files)
+    
+    
 def delete_empty_file(folder_path):
+    files = glob.glob(f"{folder_path}/**/*.py")
     files = os.listdir(folder_path)
     
     for f in files:
@@ -17,6 +24,6 @@ def delete_empty_file(folder_path):
                 print(f"ファイル削除中にエラーが発生しました: {file_path}, エラー: {e}")
 
 if __name__ == '__main__':
-    folder_pathes = ["contest"]
+    folder_pathes = ["sample_tests"]
     for p in folder_pathes:
-        delete_empty_file(p)
+        delete_folder_with_empty_file(p)
