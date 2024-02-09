@@ -2,8 +2,7 @@ import re
 import os
 
 
-def create_files(parent, number):
-    dif = ["A", "B", "C", "D", "E", "F"]
+def create_files(parent, number, dif):
     for d in dif:
         folder_path = f"{parent}\\{number}{d}"
         os.makedirs(folder_path)
@@ -15,6 +14,7 @@ def create_files(parent, number):
 
 if __name__ == '__main__':
     contests = ["abc", "arc"]
+    dif = ["A", "B", "C", "D", "E", "F"]
     while True:
         try:
             n = input("問題番号を入力してください\n")
@@ -26,4 +26,5 @@ if __name__ == '__main__':
                 break
         except ValueError:
             print("(コンテストの種類3文字)(問題番号3文字)の形で入力してください")
-    create_files("contest", n)
+    
+    create_files("contest", n, dif)

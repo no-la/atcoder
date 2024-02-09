@@ -96,8 +96,8 @@ $solved_file = $file_path_components[-1]
 $solved_file_components = $solved_file -split "\."
 $problem_number = $file_path_components[-2].Substring(0, $file_path_components[-2].Length-1)
 $problem_alphabet = $file_path_components[-2].Substring($file_path_components[-2].Length-1, 1)  # Example: a
-$solved_file_name = $solved_file_components[0]  # 拡張子を除いたもの
-$solved_file_extension = $solved_file_components[1]  # 拡張子
+$solved_file_name = $solved_file_components[0..($solved_file_components.Length-1)] -join "."  # 拡張子を除いたもの
+$solved_file_extension = $solved_file_components[-1]  # 拡張子
 Write-Host "solved_file : $solved_file"
 Write-Host "problem_number : $problem_number"
 Write-Host "solved_file_name : $solved_file_name"

@@ -1,4 +1,4 @@
-N = int(input("aaa"))
+N = int(input())
 A = list(map(int, input().split()))
 
 #広義単調増加列を探す->そのどこかが頂点になる
