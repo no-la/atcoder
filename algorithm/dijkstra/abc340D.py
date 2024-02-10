@@ -7,7 +7,7 @@ def dijkstra(edges, N, start=0):
         N : 点の個数(=len(edges))
         start : 探索を始める点
     """
-    dist = [float("inf")]*N
+    dist = [float("inf")]*N # dist[i]: startからiまでのコスト
     dist[start] = 0 # スタートは0
     seen = [False]*N
     
