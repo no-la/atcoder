@@ -3,13 +3,22 @@ import os
 
 
 def create_files(parent, number, dif):
+    created_files = []
     for d in dif:
         folder_path = f"{parent}\\{number}{d}"
+        if os.path.exists(folder_path):
+            print(f"\033[31m{folder_path} already exits.\033[0m")
+            continue
         os.makedirs(folder_path)
-        with open(f"{folder_path}\\{number}{d}.py", "w"):
+        file_path = f"{folder_path}\\{number}{d}.py"
+        with open(file_path, "w"):
             pass
+        created_files.append(file_path)
         # print(f"{today}{d}.py")
-    print("作成しました")
+    if created_files:
+        print('-'*15+" created files "+'-'*15, end="\n\n")
+        print('\n'.join(created_files), end="\n\n")
+        print('-'*45)
 
 
 if __name__ == '__main__':
