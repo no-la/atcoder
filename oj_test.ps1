@@ -38,7 +38,7 @@ function Test {
         Remove-Item $compiled_output -Force
     } elseif ($solved_file_extension -eq "py") {
         # Run tests using the provided Python script
-        oj test -c "python $solved_file_path" -d $test_directory
+        oj test -c "py -3.10 $solved_file_path" -d $test_directory
     } else {
         Write-Host "Unsupported file extension: $solved_file_extension"
     }
