@@ -3,11 +3,13 @@ import glob
 
 
 def delete_folder_with_empty_file(folder_path):
+    """まだ実装してない"""
     files = glob.glob(f"{folder_path}/**/*")
     print(files)
     
     
 def delete_empty_file(folder_path):
+    """folder_path内の空のファイルを全て削除する"""
     files = glob.glob(f"{folder_path}/**/*.py")
     files = os.listdir(folder_path)
     
