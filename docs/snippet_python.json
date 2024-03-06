@@ -1,0 +1,428 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"main": {
+		"prefix": "main",
+		"body": [
+			"if __name__ == '__main__':",
+			"    ${1:pass}"
+		],
+		"description": "main"
+	},
+	"direction": {
+		"prefix": "direction",
+		"body": [
+			"s = ${1:str}",
+            "if s==\"L\":",
+            "    delta = (0, -1)",
+            "elif s==\"R\":",
+            "    delta = (0, 1)",
+            "elif s==\"U\":",
+            "    delta = (-1, 0)",
+            "elif s==\"D\":",
+            "    delta = (1, 0)"
+		]
+	},
+	"abcdefg": {
+		"prefix": "abcdefg",
+		"body": [
+			"abcdefghijklmnopqrstuvwxyz"
+		]
+	},
+	"ABCDEFG": {
+		"prefix": "ABCDEFG",
+		"body": [
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		]
+	},
+	"N": {
+		"prefix": "N",
+		"body": [
+			"N = int(input())"
+		]
+	},
+	"NM": {
+		"prefix": "NM",
+		"body": [
+			"N, M = map(int, input().split())"
+		]
+	},
+	"S": {
+		"prefix": "S",
+		"body": [
+			"S = input()"
+		]
+	},
+	"HW": {
+		"prefix": "HW",
+		"body": [
+			"H, W = map(int, input().split())"
+		]
+	},
+	"inti": {
+		"prefix": "inti",
+		"body": [
+			"int(input())"
+		]
+	},
+	"map": {
+		"prefix": "map",
+		"body": [
+			"map(${1:int}, ${2:input().split()})"
+		]
+	},
+	"for_": {
+		"prefix": "for_",
+		"body": [
+			"for _ in range(${1:N}):"
+		]
+	},
+	"fori": {
+		"prefix": "fori",
+		"body": [
+			"for i in range(${1:N}):"
+		]
+	},
+	"forj": {
+		"prefix": "forj",
+		"body": [
+			"for j in range(${1:N}):"
+		]
+	},
+	"defaultdict": {
+		"prefix": "defaultdict",
+		"body": [
+			"from collections import defaultdict",
+			"d = defaultdict(${1:list})"
+		]
+	},
+	"bisect": {
+		"prefix": "bisect",
+		"body": [
+			"import bisect",
+			"#基本的にbisect_leftを使う",
+			"#渡す配列は昇順(reverse=False)ソートしておく"
+		]
+	},
+	"heapq": {
+		"prefix": "heapq",
+		"body": [
+			"from heapq import heapify, heappop, heappush",
+			"#heapify(a:list)",
+			"#heappop(a) (最小値)",
+			"#heappush(a, value)"
+		]
+	},
+	"permutation": {
+		"prefix": "permutation",
+		"body": [
+			"# 順列 O(nPk)<=n!",
+			"import itertools",
+			"for l in itertools.permutations(${1:要素のリスト}, ${2:選ぶ個数}):"
+		]
+	},
+	"combination": {
+		"prefix": "combination",
+		"body": [
+			"# 重複なし組み合わせ O(nCk)",
+			"import itertools",
+			"for l in itertools.combinations(${1:要素のリスト}, ${2:選ぶ個数}):"
+		]
+	},
+	"homogeneous": {
+		"prefix": "homogeneous",
+		"body": [
+			"# 重複あり組み合わせ O(nHk)=O(n+k-1Ck)",
+			"import itertools",
+			"for l in itertools.combinations_with_replacement(${1:要素のリスト}, ${2:選ぶ個数}):"
+		]
+	},
+	"syakutori": {
+		"prefix": "syakutori",
+		"body": [
+			"#尺取り法",
+			"ans = 0",
+			"right = 0",
+			"temp = ${1:初期値} #部分列による値（条件の判定に必要なときに使う）",
+			"for left in range(${2:N}):",
+			"	while ${3:部分列が満たすべき条件}: #条件の判定",
+			"		temp += ${4:A[right]}",
+			"		right += 1",
+			"	ans = ${5:max}(ans, right-left)",
+			"	if left == right: #[left, right)が空集合なので'temp=初期値'になっているはず",
+			"		right += 1",
+			"	else: #このあとleftを+1するので、その分の情報を削る",
+			"		temp -= ${6:A[left]}"
+		]
+	},
+	"BFS": {
+		"prefix": "BFS",
+		"body": [
+			"#BFS",
+			"from collections import deque",
+			"todo = deque(${1:初期値})",
+			"dist = [-1]*${2:N} #todo[0]からの距離のリスト",
+			"dist[${3:todo[0]}] = 0",
+			"while todo:",
+			"	v = todo.popleft()",
+			"	for ${4:w in vの周り}:",
+			"		if dist[${5:w}]!=-1: #既に調べた点は飛ばす",
+			"			continue",
+			"		if ${6:調べる点が満たすべき条件}:",
+			"			todo.append(${7:点})",
+			"			dist[${8:w}] = dist[${9:v}]+1"
+		]
+	},
+	"DFS": {
+		"prefix": "DFS",
+		"body": [
+			"#DFS",
+			"from collections import deque",
+			"todo = deque(${1:初期値})",
+			"seen = [False]*${2:N} #ここはsetでもよい",
+			"seen[${3:todo[0]}] = True",
+			"while todo:",
+			"	v = todo.pop()",
+			"	for ${4:w in vの周り}:",
+			"		if seen[${5:w}]: #既に調べた点は飛ばす",
+			"			continue",
+			"		if ${6:調べる点が満たすべき条件}:",
+			"			todo.append(${7:点})",
+			"			seen[${8:w}] = True"
+		]
+	},
+	"imos": {
+		"prefix": "imos",
+		"body": [
+			"#imos法",
+			"imos = [0]*${1:N}",
+			"#始点に+x, 終点の次の点に-xする",
+			"#適当な処理",
+			"for i in range(1, len(imos)):",
+			"	imos[i] += imos[i-1]"
+		]
+	},
+	"segmentTree": {
+		"prefix": "segmentTree",
+		"body": [
+			"class SegTree:",
+			"	def __init__(self, num, e, operator=max):",
+			"		\"\"\"",
+			"		parameter",
+			"			num : 要素数",
+			"			e : 単位元(初期値)",
+			"			operator : 2つの子ノードの値から親ノードの値を作る関数",
+			"		\"\"\"",
+			"		#self.tree[i+self.offset]:要素iのみの区間の値",
+			"		self.offset = 1 << (num-1).bit_length()",
+			"		self.tree = [e]*(self.offset<<1)",
+			"		self.e = e",
+			"		self.operator = operator",
+			"	",
+			"	def update(self, i, value):",
+			"		\"\"\"i番目の要素をvalueにする",
+			"		\"\"\"",
+			"		i += self.offset",
+			"		self.tree[i] = value",
+			"		#親ノードを順に変更していく",
+			"		while i>1:",
+			"			v1, v2 = self.tree[i], self.tree[i^1] #子ノード",
+			"			i >>= 1 #iを親ノードへずらす",
+			"			self.tree[i] = self.operator(v1, v2)",
+			"			",
+			"	def get_point(self, p):",
+			"		\"\"\"p番目の要素を取得する",
+			"		\"\"\"",
+			"		return self.tree[p+self.offset]",
+			"	",
+			"	def get_range(self, l, r):",
+			"		\"\"\"区間[l, r)の値を取得する",
+			"		\"\"\"",
+			"		l += self.offset",
+			"		r += self.offset",
+			"		",
+			"		ans = self.e",
+			"		while l<r:",
+			"			if r&1:",
+			"				ans = self.operator(ans, self.tree[r-1])",
+			"				r -= 1",
+			"			if l&1:",
+			"				ans = self.operator(ans, self.tree[l])",
+			"				l += 1",
+			"			l >>= 1",
+			"	 		r >>= 1",
+			"		return ans"
+				]
+	},
+	"dijkstra": {
+		"prefix": "dijkstra",
+		"body": [
+			"import heapq",
+			"",
+			"def dijkstra(edges, N, start=0):",
+			"	\"\"\"",
+			"	parameter",
+			"		edges[i][_] : [点iから向かう点, コスト]",
+			"		N : 点の個数(=len(edges))",
+			"		start : 探索を始める点",
+			"	\"\"\"",
+			"	dist = [float(\"inf\")]*N # dist[i]: startからiまでのコスト",
+			"	dist[start] = 0 # スタートは0",
+			"	seen = [False]*N",
+			"	",
+			"	hq = [] # コスト, 向かう点",
+			"	heapq.heappush(hq, (0, start))",
+			"",
+			"	while hq:",
+			"		_, current = heapq.heappop(hq)",
+			"		",
+			"		if seen[current]: # 同じ点を二度見ない",
+			"			continue",
+			"		seen[current] = True",
+			"		for to, cost in edges[current]:",
+			"			if dist[current] + cost < dist[to]: # 最短距離を更新できるときだけheappush()",
+			"				dist[to] = dist[current] + cost",
+			"				heapq.heappush(hq, (dist[current] + cost, to))",
+			"	return dist",
+		]
+	},
+	"memo_recursion": {
+		"prefix": "memo_recursion",
+		"body": [
+			"from functools import cache",
+			"#メモ化再帰",
+			"@cache",
+			"def f(n):",
+			"	${1:pass}",
+		]
+	},
+	"union_find": {
+		"prefix": "union_find",
+		"body": [
+			"class UnionFind():",
+			"	\"\"\"",
+			"	集合を木と捉え、各要素にその根を持たせる",
+			"	Union : 2つの木を合併する",
+			"	Find : 要素の根を返す",
+			"	\"\"\"",
+			"	",
+			"	def __init__(self, n) -> None:",
+			"		\"\"\"",
+			"		parameter",
+			"			n : 要素数",
+			"		\"\"\"",
+			"		self.n = n",
+			"		self.parents = [-1]*n",
+			"		self.rank = [0]*n",
+			"	",
+			"	def find(self, x):",
+			"		\"\"\"",
+			"		xの根を返す",
+			"		\"\"\"",
+			"		if self.parents[x]==-1:",
+			"			return x",
+			"		else:",
+			"			# 値を更新しながら根を探す",
+			"			# 深さは最大でlog(n)なので、再帰関数でok",
+			"			self.parents[x] = self.find(self.parents[x])",
+			"			return self.parents[x]",
+			"	",
+			"	def union(self, x, y):",
+			"		\"\"\"",
+			"		xを含む木とyを含む木を合併する",
+			"		\"\"\"",
+			"		x = self.find(x)",
+			"		y = self.find(y)",
+			"	",
+			"		if x==y:",
+			"			return",
+			"		",
+			"		if self.rank[x] > self.rank[y]:",
+			"			x, y = y, x",
+			"		",
+			"		self.parents[x] = y",
+			"		",
+			"		if self.rank[x] == self.rank[y]:",
+			"			self.rank[y] += 1"
+		]
+	},
+	"osa_k": {
+		"prefix": "osa_k",
+		"body": [
+			"# osa_k法",
+			"MAXN = ${1:10**6+10}",
+			"sieve = [i for i in range(MAXN)] # sieve[i]: iの最も小さい素因数",
+			"p = 2",
+			"while p*p<=MAXN: # O(MAXN * loglog MAXN)",
+			"	if sieve[p]==p:",
+			"		for q in range(p*p, MAXN, p):",
+			"			if sieve[q]==q:",
+			"				sieve[q] = p",
+			"	p += 1",
+			"",
+			"from collections import defaultdict",
+			"def prime_factors(n):",
+			"	\"\"\"n(2<=n<=MAXN)の素因数を返す\"\"\"",
+			"	d = defaultdict(int) # 適宜変更",
+			"	while n>1: # O(log n)",
+			"		d[sieve[n]] += 1",
+			"		n //= sieve[n]",
+			"	return d"
+		]
+	},
+	"doubling": {
+		"prefix": "doubling",
+		"body": [
+			"# ダブリング",
+			"import math",
+			"",
+			"MAX_OP = ${1:K} # 操作の最大回数",
+			"P_NUM = ${2:N} # 頂点の個数",
+			"DB_NUM = int(math.log2(MAX_OP)) + 1",
+			"",
+			"# dp[i][j]: 頂点jから2^i回の操作後の頂点",
+			"dp = [[0]*P_NUM for _ in range(DB_NUM)]",
+			"",
+			"# dp[0][0:X]を初期化",
+			"for i in range(P_NUM):",
+			"	dp[0][i] = A[i]",
+			"",
+			"# ダブリングで表を構築 O(P_NUM*logMAX_OP)",
+			"for k in range(1, DB_NUM):",
+			"	for n in range(P_NUM):",
+			"		dp[k][n] = dp[k - 1][dp[k - 1][n]]",
+			"",
+			"",
+			"# K回操作後の頂点を得る",
+			"now = ${3:0} # 始点",
+			"for i in range(DB_NUM):",
+			"	if ${4:K}>>i & 1:",
+			"		now = dp[i][now]"
+		]
+	},
+	"bit_exploretion": {
+		"prefix": "bit_exploretion",
+		"body": [
+			"# bit全探索",
+			"A = []",
+			"N = len(A)",
+			"for i in range(2 ** N):",
+			"	for j in range(N):",
+			"		if not ((i >> j) & 1):",
+			"			continue",
+			"		# A[j]を選ぶ場合なので、適当な処理を書く"
+		]
+	},
+}
