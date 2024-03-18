@@ -1,13 +1,15 @@
+# https://atcoder.jp/contests/abc238/submissions/51424807
 N, Q = map(int, input().split())
 
 from collections import defaultdict, deque
 d = defaultdict(list)
 for _ in range(Q):
     l, r = map(lambda x: int(x)-1, input().split())
-    r += 1
+    r += 1 # [l, r)にする
     d[l].append(r)
     d[r].append(l)
 
+# 0からたどってNに着けばYes
 #DFS
 todo = deque([0])
 seen = [False]*N #ここはsetでもよい
