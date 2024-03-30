@@ -22,7 +22,7 @@ for i in range(1, 61): # i桁の2進数を調べる
             if (not cis1) and y.bit_count()<b:
                 y += 1<<k
                 
-        x = C^y
+        x = C^y # x^y = C -> x^y^y = C^y -> x = C^y
         if x.bit_count()==a and y.bit_count()==b:
             print(x, y)
             exit()
