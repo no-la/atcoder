@@ -13,6 +13,7 @@ class UnionFind():
         self.n = n
         self.parents = [-1]*n
         self.rank = [0]*n
+        self.size = [1]*n
     
     def find(self, x):
         """
@@ -32,6 +33,7 @@ class UnionFind():
         """
         x = self.find(x)
         y = self.find(y)
+        nsize = self.size[x]+self.size[y]
     
         if x==y:
             return
@@ -43,5 +45,6 @@ class UnionFind():
         
         if self.rank[x] == self.rank[y]:
             self.rank[y] += 1
-    
-    
+        
+        self.size[x] = nsize
+        self.size[y] = nsize
