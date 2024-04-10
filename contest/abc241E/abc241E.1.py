@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc241/submissions/52213211
 N, K = map(int, input().split())
 A = list(map(int, input().split()))
 
