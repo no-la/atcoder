@@ -31,9 +31,14 @@ if __name__ == '__main__':
                 print(f"存在しないコンテストです {n[0:3]} not in {contests}")
             elif not n[3:6].isdigit():
                 print(f"問題番号は0埋めで3桁表示してください {n[3:6]}")
+            elif len(n)==7 and n[6] not in dif:
+                print(f"対応していない難易度です dif={dif}")
             else:
                 break
         except ValueError:
             print("(コンテストの種類3文字)(問題番号3文字)の形で入力してください")
     
+    if len(n)==7:
+        dif = [n[6]]
+        
     create_files("contest", n, dif)
