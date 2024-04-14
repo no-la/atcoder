@@ -41,4 +41,4 @@ if __name__ == '__main__':
     if len(n)==7:
         dif = [n[6]]
         
-    create_files("contest", n, dif)
+    create_files("contest", n[:6], dif)
