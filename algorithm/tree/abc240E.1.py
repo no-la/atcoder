@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc240/submissions/52744568
 class Tree:
     """木構造のあれこれをするクラス
     
@@ -76,10 +77,8 @@ class Tree:
                 self.hierarchy.pop()
 
 N = int(input())
-t = Tree(N, [list(map(int, input().split())) for _ in range(N-1)], 0)
-for _ in range(N-1):
-    t.add_edge(*map(lambda x: int(x)-1, input().split()))
-t.set_info()
+t = Tree(N, [list(map(lambda x: int(x)-1, input().split())) for _ in range(N-1)],
+         0, False)
 
 ans = [[1, 0] for _ in range(N)]
 
