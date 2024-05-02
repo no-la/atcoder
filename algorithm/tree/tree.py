@@ -34,12 +34,12 @@ class Tree:
         self.set_info()
     
     def set_edges(self):
-        for to, from_ in self.E:
+        for from_, to in self.E:
             self.edges[from_].append(to)
 
         if not self.is_directed:
             for to, from_ in self.E:
-                self.edges[to].append(from_)
+                self.edges[from_].append(to)
     
     def set_info(self):
         """深さごとの頂点のリスト、親のリスト、子のリストを作る"""
@@ -74,27 +74,4 @@ class Tree:
                 self.leafs.append(v)
             if not self.hierarchy[-1]:
                 self.hierarchy.pop()
-
-N = int(input())
-t = Tree(N, [list(map(int, input().split())) for _ in range(N-1)], 0)
-for _ in range(N-1):
-    t.add_edge(*map(lambda x: int(x)-1, input().split()))
-t.set_info()
-
-ans = [[1, 0] for _ in range(N)]
-
-# 葉の値を、条件を満たすようにおく
-for c, i in enumerate(t.leafs):
-    ans[i] = [c+1, c+1]
-    
-# 順に親へ向かっていき、区間が最小になるように値を決めていく
-for h in t.hierarchy[::-1]:
-    for i in h:
-        if not t.childs[i]:
-            continue
-        ans[i][1] = max([ans[c][1] for c in t.childs[i]])
-        ans[i][0] = min([ans[c][0] for c in t.childs[i]])
-        
-for l, r in ans:
-    print(l, r)
     
