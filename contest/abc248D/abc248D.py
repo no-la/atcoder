@@ -12,7 +12,7 @@ import bisect
 # 渡す配列は昇順(reverse=False)ソートしておく
 for _ in range(Q):
     L, R, X = map(int, input().split())
-    ri = bisect.bisect_left(d[X], R)
-    li = bisect.bisect_left(d[X], L-1)
-    print(L, R, d[X], li, ri)
-    print(ri-li)
+    ri = bisect.bisect_left(d[X], R+1)
+    li = bisect.bisect_left(d[X], L)
+    # print(L, R, d[X], li, ri)
+    print(ri-li) # (li, ri]

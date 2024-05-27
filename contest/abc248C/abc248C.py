@@ -8,9 +8,10 @@ dp[0][0] = 1
 for i in range(1, N+1):
     for j in range(1,K+1):
         for k in range(1, M+1):
-            if j+k<=K:
-                dp[i][j] = (dp[i][j] + dp[i-1][j-k]*(N-i))%MOD
+            if not (0<=j-k<K+1):
+                continue
+            dp[i][j] = (dp[i][j] + dp[i-1][j-k])%MOD
 
-print(*dp, sep="\n")
-print(sum(dp[N]))
+# print(*dp, sep="\n")
+print(sum(dp[N])%MOD)
 
