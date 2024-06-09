@@ -2,7 +2,7 @@ N = int(input())
 A = list(map(int, input().split()))
 
 # osa_k法
-MAXN = 10**6+10
+MAXN = 10**3+10
 sieve = [i for i in range(MAXN)] # sieve[i]: iの最も小さい素因数
 p = 2
 while p*p<=MAXN: # O(MAXN * loglog MAXN)
@@ -23,14 +23,16 @@ def prime_factors(n):
 
 is_setwise_coprime = True
 is_pairwise_coprime = True
-count = [0]*MAXN
-for a in A:
-    l = prime_factors(a)
-    for i in l.keys():
-        count[i] += 1
-
-is_setwise_coprime = all([c<N for c in count])
-is_pairwise_coprime = all([c<2 for c in count])
+for i in range(2, MAXN):
+    if sieve[i]!=i:
+        continue
+    count = 0
+    for a in A:
+        count += a%i==0
+    if count==N:
+        is_setwise_coprime = False
+    if count>=2:
+        is_pairwise_coprime = False
 
 if is_pairwise_coprime:
     print("pairwise coprime")
