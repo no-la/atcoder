@@ -76,31 +76,25 @@ for _ in range(T):
     N = int(input())
     S = input()
     
-    ans = ModInt(0)
     # S以下の最大の回文を探せばいい
     offset = ord("A")
-    h = N//2
+    center = 1
+    h = (N+1)//2
     tar = S[:h]
-    if tar[::-1] <= S[-h:]:
-            ...
-    else:
-        tar = tar[:-1] + f(tar[-1])
+    if tar[::-1]>S[-h:]:
+        # tarを1下げる
+        i = h-1
+        while i>=0 and tar[i]=="A":
+            i -= 1
+        if i>=0:
+            tar = tar[:i] + f(tar[i]) + "Z"*((N+1)//2-i-1)
     
-    if N&1==0:
-        center = 1
-    elif tar==S[:h]:
-        center = ord(S[h])-offset+1
-    else:
-        ans += ord(S[h])-offset
-        center = 26
     count = ModInt(0)
-    for i in range(h):
-        count += (ord(tar[i])-offset)*(26**(h-i-1))
+    for i in range(len(tar)):
+        count += (ord(tar[i])-offset)*pow(26, h-i-1, ModInt.MOD)
         
     count += 1 # AA...A(=0)の分
-    # print(S, tar, center, count)
-    count *= center
+    # print(S, tar, count)
 
-    ans += count
-    print(ans)
+    print(count)
     
