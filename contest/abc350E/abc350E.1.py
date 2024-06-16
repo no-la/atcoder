@@ -9,22 +9,13 @@ from functools import cache
 #メモ化再帰
 @cache
 def f(n):
-    # Yの操作のみでnを0にするまでの金額の期待値
+    # Yの操作のみでnを0にするまでの金額の期待値は
     # f(n) = Y + 1/6 * (f(n) + f(n//2) + ... + f(n//6))
     # 変形して
     # f(n) = 6/5 * Y + 1/5 * (f(n//2) + f(n//3) + ... + f(n//6))
+    # これにXの操作を反映させる
     if n==0:
         return 0
-    return 6*Y/5 + sum([f(n//i) for i in range(2, 7)])/5
+    return min(X+f(n//A), 6*Y/5 + sum([f(n//i) for i in range(2, 7)])/5)
 
-
-ans = 10**10
-n = N
-for i in range(N):
-    if n==0:
-        ans = min(ans, X*i)
-        break
-    ans = min(ans, X*i + f(n))
-    n //= A
-    
-print(ans)
+print(f(N))
