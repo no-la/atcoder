@@ -14,6 +14,13 @@ dp = [[[0]*M for _ in range(2**M)] for _ in range(N+1)]
 # 配るDP
 for i in range(N):
     for d in range(2**M):
+        # 初めて参加するとき
+        if not d:
+            ns = f(S[i])
+            nd = 1<<ns
+            dp[i+1][nd][ns] += 1
+            dp[i+1][nd][ns] %= MOD
+
         for s in range(M):
             # S[i]を選ばないとき
             dp[i+1][d][s] += dp[i][d][s]
@@ -27,17 +34,10 @@ for i in range(N):
             dp[i+1][nd][ns] += dp[i][d][s]
             dp[i+1][nd][ns] %= MOD
             
-            # 初めて参加するとき
-            if not d:
-                dp[i+1][nd][ns] += 1
-                dp[i+1][nd][ns] %= MOD
 
 ans = 0
 for d in range(1, 2**M):
     for s in range(M):
-        # if dp[N][d][s]:
-        #     print(N, bin(d), s, dp[N][d][s])
         ans += dp[N][d][s]
         ans %= MOD
-ans = (ans*pow(10, -1, MOD))%MOD
 print(ans)
