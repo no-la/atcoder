@@ -1,39 +1,47 @@
 N, M = map(int, input().split())
-from collections import defaultdict
-D = defaultdict(list)
-E = []
+INF = 10**15
+dist = [[INF]*N for _ in range(N)]
+for i in range(N):
+    dist[i][i] = 0
+# dist[i][j]: 島iから島jへの最短コスト
+E = [None]*M
 for i in range(M):
     u, v, t = map(int, input().split())
     u -= 1
     v -= 1
+    if dist[u][v]>t:
+        dist[u][v] = t
+        dist[v][u] = t
     E[i] = (u, v, t)
-    D[u].append((v, t, i))
-    D[v].append((u, t, i))
 Q = int(input())
-INF = 10**15
 
-dist = [[INF]*N for _ in range(N)]
-# dist[i][j]: 島iから島jへの最短コスト
-from collections import deque
-for i in range(N):
-    for j in range(i, N):
-        if i==j:
-            dist[i][j] = 0
-            continue
-        # DFS
-        todo = deque([(i, j)])
-        seen = [False]*N # ここはsetでもよい
-        seen[todo[0]] = True
-        while todo:
-            vi, vj = todo.pop()
-            for w in D[vi]:
-                if seen[w]: # 既に調べた点は飛ばす
-                    continue
-                if 調べる点が満たすべき条件:
-                    todo.append(点)
-                    seen[w] = True
+# ワーシャルフロイド法
+for k in range(N):
+    for i in range(N):
+        for j in range(N):
+            dist[i][j] = min(dist[i][j], dist[i][k]+dist[k][j])
 
+# print(*dist, sep="\n")
 
+import itertools
 for _ in range(Q):
     K = int(input())
     B = list(map(lambda x: int(x)-1, input().split()))
+    ans = INF
+    # 順列 O(nPk)<=n!
+    for l in itertools.permutations(B, K):
+        for i in range(2 ** K):
+            cost = 0
+            before = 0
+            for j in range(K):
+                u, v, t = E[l[j]]
+                if (i >> j) & 1:
+                    u, v = v, u
+                # print(before, "->", u)
+                cost += dist[before][u] + t
+                before = v
+            cost += dist[before][N-1]
+            # print("-"*20, cost, sep="\n")
+            ans = min(ans, cost)
+        
+    print(ans)
