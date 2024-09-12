@@ -110,7 +110,7 @@ Write-Host "test_directory : $test_directory"
 
 $atcoder_url = "https://atcoder.jp/contests/$problem_number/tasks/${problem_number}_$problem_alphabet"
 if ([int]$problem_number.Substring(0, $problem_number.Length3) -le 14) {
-    $problem_alphabet_num = [byte][char]::ToUpper($problem_alphabet) - [byte][char]'A'
+    $problem_alphabet_num = [byte][char]::ToUpper($problem_alphabet) - [byte][char]'A' + 1
     $atcoder_url = "https://atcoder.jp/contests/$problem_number/tasks/${problem_number}_$problem_alphabet_num"
 }
 Write-Host "atcoder_url : $atcoder_url"
