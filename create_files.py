@@ -25,10 +25,13 @@ if __name__ == '__main__':
     contests = ["abc", "arc"]
     _dif = ["A", "B", "C", "D", "E", "F"]
     is_exception_contest = False
+    is_abc_or_arc_contest = False
     while True:
         try:
             n = input("問題番号を入力してください\n")
-            if n[0:-1] not in contests:
+            if n == "q":
+                exit()
+            if n[0:3] not in contests:
                 # print(f"ABC, ARC以外のコンテストです {n[0:3]} not in {contests}")
                 is_exception_contest = input(f"{n}.pyを作成しますか？ y/n\n") == "y"
                 if is_exception_contest:
@@ -38,14 +41,20 @@ if __name__ == '__main__':
             elif len(n) == 7 and n[6] not in _dif:
                 print(f"対応していない難易度です _dif={_dif}")
             else:
+                is_abc_or_arc_contest = True
                 break
         except ValueError:
             print("(コンテストの種類3文字)(問題番号3文字)の形で入力してください")
 
-    contest_name = n[:-1]
-    if is_exception_contest:
+    if is_abc_or_arc_contest:
+        if len(n) == 7:
+            contest_name = n[:-1]
+            _dif = [n[-1]]
+        else:
+            contest_name = n
+    elif is_exception_contest:
         _dif = [n[-1]]
-    elif len(n) == 7:
-        _dif = [n[-1]]
+    else:
+        print("予期しないエラー")
 
     create_files("contest", contest_name, _dif)
