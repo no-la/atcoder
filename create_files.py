@@ -53,6 +53,7 @@ if __name__ == '__main__':
         else:
             contest_name = n
     elif is_exception_contest:
+        contest_name = n[:-1]
         _dif = [n[-1]]
     else:
         print("予期しないエラー")
