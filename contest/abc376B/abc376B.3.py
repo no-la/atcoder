@@ -19,16 +19,17 @@ for _ in range(Q):
     c1 = lr[i] - t1 + (lr[j] - t1 + 1 if t1 < lr[j] < lr[i] else 0)
     c2 = t2 - lr[i] + (t2 - lr[j] + 1 if lr[i] < lr[j] < t2 else 0)
 
-    print(h, t, ":", t1, *lr, t2, f"{c1=}, {c2=}")
-    if c1 < c2:
-        ans += c1
-        if t1 < lr[j] < lr[i]:
-            lr[j] = (t1 - 1) % N
-        lr[i] = t1 % N
+    # print(h, t, ":", t1, *lr, t2, f"{c1=}, {c2=}")
+    if t1 < lr[j] < lr[i] or t1 < lr[j] - N < lr[i]:
+        ans += t2 - lr[i]
+    elif lr[i] < lr[j] < t2 or lr[i] < lr[j] + N < lr[i]:
+        ans += lr[i] - t1
     else:
-        ans += c2
-        if lr[i] < lr[j] < t2:
-            lr[j] = (t2 + 1) % N
-        lr[i] = t2 % N
+        if c1 < c2:
+            ans += c1
+        else:
+            ans += c2
+    lr[i] = t
+    # print(ans)
 
 print(ans)
