@@ -18,7 +18,10 @@ for i in X:
     if count < need:
         print(-1)
         exit()
-    ans += need * (2 * count - need + 1) // 2
+    if need == 0:
+        ans += count
+    else:
+        ans += need * (2 * count - need + 1) // 2
     count -= need
     count += d[i] - 1
     bi = i
