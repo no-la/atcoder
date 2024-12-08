@@ -100,7 +100,7 @@
 		]
 	},
 	"sep": {
-		"prefix": "sep",
+		"prefix": "sepn",
 		"body": "sep=\"\\n\""
 	},
 	"defaultdict": {
@@ -114,17 +114,12 @@
 		"prefix": "bisect",
 		"body": [
 			"import bisect",
-			"# 基本的にbisect_leftを使う",
-			"# 渡す配列は昇順(reverse=False)ソートしておく"
 		]
 	},
 	"heapq": {
 		"prefix": "heapq",
 		"body": [
 			"from heapq import heapify, heappop, heappush",
-			"#heapify(a:list)",
-			"#heappop(a) (最小値)",
-			"#heappush(a, value)"
 		]
 	},
 	"permutation": {
@@ -159,7 +154,7 @@
 			"right = 0",
 			"temp = ${1:初期値} #部分列による値（条件の判定に必要なときに使う）",
 			"for left in range(${2:N}):",
-			"\twhile ${3:部分列が満たすべき条件}: # 条件の判定",
+			"\twhile ${3:部分列が満たすべき条件}:",
 			"\t\ttemp += ${4:A[right]}",
 			"\t\tright += 1",
 			"\tans = ${5:max}(ans, right-left)",
@@ -174,17 +169,16 @@
 		"body": [
 			"# BFS",
 			"from collections import deque",
-			"todo = deque(${1:初期値})",
-			"dist = [-1]*${2:N} #todo[0]からの距離のリスト",
+			"todo = deque([${1:初期値}])",
+			"dist = [-1]*${2:N}",
 			"dist[${3:todo[0]}] = 0",
 			"while todo:",
 			"\tv = todo.popleft()",
-			"\tfor ${4:w in vの周り}:",
-			"\t\tif dist[${5:w}]!=-1: # 既に調べた点は飛ばす",
+			"\tfor ${4:w in d[v]}:",
+			"\t\tif dist[w]!=-1: # 既に調べた点は飛ばす",
 			"\t\t\tcontinue",
-			"\t\tif ${6:調べる点が満たすべき条件}:",
-			"\t\t\ttodo.append(${7:点})",
-			"\t\t\tdist[${8:w}] = dist[${9:v}]+1"
+			"\t\ttodo.append(w)",
+			"\t\tdist[w] = dist[v]+1"
 		]
 	},
 	"DFS": {
@@ -192,17 +186,16 @@
 		"body": [
 			"# DFS",
 			"from collections import deque",
-			"todo = deque(${1:初期値})",
-			"seen = [False]*${2:N} # ここはsetでもよい",
-			"seen[${3:todo[0]}] = True",
+			"todo = deque([${1:初期値}])",
+			"seen = [False]*${2:N}",
+			"seen[${3:0}] = True",
 			"while todo:",
 			"\tv = todo.pop()",
-			"\tfor ${4:w in vの周り}:",
-			"\t\tif seen[${5:w}]: # 既に調べた点は飛ばす",
+			"\tfor ${4:w in d[v]}:",
+			"\t\tif seen[${5:w}]:",
 			"\t\t\tcontinue",
-			"\t\tif ${6:調べる点が満たすべき条件}:",
-			"\t\t\ttodo.append(${7:点})",
-			"\t\t\tseen[${8:w}] = True"
+			"\t\ttodo.append(w)",
+			"\t\tseen[w] = True"
 		]
 	},
 	"imos": {
@@ -824,75 +817,8 @@
 			"\t\treturn ans"
 		]
 	},
-	"mod_int":{
-		"prefix": "mod_int",
-		"body": [
-			"class ModInt:",
-				"\tMOD = ...",
-				"\tdef __init__(self, value: int) -> None:",
-				"\t\tself.value: int = value%ModInt.MOD",
-				"\t",
-				"\tdef __add__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(self.value + other.value)",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(self.value + int(other)))",
-				"\t",
-				"\tdef __sub__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(self.value - other.value)",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(self.value - int(other)))",
-				"\t",
-				"\tdef __mul__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(self.value * other.value)",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(self.value * int(other)))",
-				"\t",
-				"\tdef __floordiv__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(self.value * pow(other.value, -1, ModInt.MOD))",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(self.value * pow(int(other), -1, ModInt.MOD)))",
-				"\t\t\t\t",
-				"\tdef __pow__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(pow(self.value, other.value, ModInt.MOD))",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(pow(self.value, int(other), ModInt.MOD)))",
-				"\t",
-				"\tdef __eq__(self, value: object) -> bool:",
-				"\t\treturn (self.value == value.value and self.MOD == value.MOD",
-				"\t\t\t\tif isinstance(value, ModInt) else",
-				"\t\t\t\tself.value == int(value))",
-				"\t\t",
-				"\tdef __radd__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(self.value + other.value)",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(self.value + int(other)))",
-				"\t",
-				"\tdef __rsub__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(other.value - self.value)",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(int(other) - self.value))",
-				"\t",
-				"\tdef __rmul__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(self.value * other.value)",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(self.value * int(other)))",
-				"\t",
-				"\tdef __rfloordiv__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(other.value * pow(self.value, -1, ModInt.MOD))",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(int(other) * pow(self.value, -1, ModInt.MOD)))",
-				"\t\t\t\t",
-				"\tdef __rpow__(self, other) -> \"ModInt\":",
-				"\t\treturn (ModInt(pow(other.value, self.value, ModInt.MOD))",
-				"\t\t\t\tif isinstance(other, ModInt) else",
-				"\t\t\t\tModInt(pow(int(other), self.value, ModInt.MOD)))",
-				"\t\t",
-				"\tdef __str__(self) -> str:",
-				"\t\treturn str(self.value)"
-		]
-	},
 	"MOD": {
 		"prefix": "MOD",
 		"body": "MOD = 998244353"
-	}
+	},
 }
