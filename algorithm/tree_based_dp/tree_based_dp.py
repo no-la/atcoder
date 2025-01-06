@@ -41,7 +41,7 @@ def tree_based_dp(size, edges, root=0, e=0, merge=max):
             todo.append((w,))
             seen[w] = True
 
-        if len(edges[v]) == 1:  # 葉
+        if len(edges[v]) <= 1:  # 葉
             dp[v] = v
     return dp
 
