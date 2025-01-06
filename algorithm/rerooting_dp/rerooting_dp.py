@@ -68,12 +68,12 @@ def rerooting(size, edges, dp, root=0, e=0, merge=max):
     while todo:
         v, vp, vi = todo.pop()
         # vにおける各値を計算する
-        if vp:
+        if vp is not None:
             # 問題設定に応じて適切にマージする
             inverse_dp[v] = merge(inverse_dp[vp], v)
             rerooted_dp[v] = merge(
                 inverse_dp[vp],
-                merge(dp[v], merge(cumsum_right[vp][vi], cumsum_left[vp][vi])),
+                merge(dp[v], merge(cumsum_right[vp][vi], cumsum_left[vp][vi + 1])),
             )
         else:  # 根
             inverse_dp[v] = v
