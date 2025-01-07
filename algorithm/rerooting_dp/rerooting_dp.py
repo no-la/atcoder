@@ -70,11 +70,13 @@ def rerooting(size, edges, dp, root=0, e=0, merge=max):
         # vにおける各値を計算する
         if vp is not None:
             # 問題設定に応じて適切にマージする
-            inverse_dp[v] = merge(inverse_dp[vp], v)
-            rerooted_dp[v] = merge(
-                inverse_dp[vp],
-                merge(dp[v], merge(cumsum_right[vp][vi], cumsum_left[vp][vi + 1])),
+            inverse_dp[v] = merge(
+                merge(
+                    inverse_dp[vp], merge(cumsum_right[vp][vi], cumsum_left[vp][vi + 1])
+                ),
+                v,
             )
+            rerooted_dp[v] = merge(inverse_dp[v], dp[v])
         else:  # 根
             inverse_dp[v] = v
             rerooted_dp[v] = dp[v]
@@ -84,9 +86,9 @@ def rerooting(size, edges, dp, root=0, e=0, merge=max):
         cumsum_right[v].append(e)
         for wi, w in enumerate(edges[v]):
             todo.append((w, v, wi))
-            cumsum_right[v].append(merge(cumsum_right[v][-1], dp[w]))
+            cumsum_right[v].append(merge(merge(cumsum_right[v][-1], dp[w]), v))
         for wi, w in enumerate(reversed(edges[v])):
-            cumsum_left[v].append(merge(cumsum_left[v][-1], dp[w]))
+            cumsum_left[v].append(merge(merge(cumsum_left[v][-1], dp[w]), v))
         cumsum_left[v].reverse()
     return rerooted_dp
 
