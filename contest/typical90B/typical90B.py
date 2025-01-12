@@ -1,21 +1,20 @@
-N=int(input())  
+N = int(input())
 
-from functools import cache
-import sys
+if N&1:
+    print()
+    exit()
 
-sys.setrecursionlimit
-#メモ化再帰
-@cache
-def f(s):
-    if len(s)==N:
-        return set([s])
-    
-    rev = set()
-    rev |= f(f"({s})")
-    rev |= f(f"{s}()")
-    rev |= f(f"(){s}")
-    return rev
+dp = [set() for _ in range(N + 1)]
+dp[2] = set(["()"])
+# dp[i]: 長さiの正しいカッコ列のset
 
+for i in range(4, N + 1, 2):
+    for j in range(2, i):
+        for s in dp[j]:
+            for t in dp[i - j]:
+                dp[i].add(f"{s}{t}")
+                dp[i].add(f"{t}{s}")
+    for s in dp[i - 2]:
+        dp[i].add(f"({s})")
 
-
-print(*sorted(f("()")), sep="\n")
+print(*sorted(dp[N]), sep="\n")
