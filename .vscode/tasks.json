@@ -16,7 +16,7 @@
                 "${fileDirname}\\${fileBasename}",
                 "false"
             ],
-            // "dependsOn": "Clean python code format",
+            "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
@@ -27,7 +27,7 @@
                 "${fileDirname}\\${fileBasename}",
                 "true"
             ],
-            // "dependsOn": "Clean python code format",
+            "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
