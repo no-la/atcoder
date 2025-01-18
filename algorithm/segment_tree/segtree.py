@@ -8,7 +8,7 @@ class SegTree:
         """
         # self.tree[i+self.offset]:要素iのみの区間の値
         self.offset = 1 << (num - 1).bit_length()
-        self.tree = [e_factory()] * (self.offset << 1)
+        self.tree = [e_factory() for _ in range(self.offset << 1)]
         self.e_factory = e_factory
         self.operand = operand
 
