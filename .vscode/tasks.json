@@ -11,19 +11,21 @@
         {
             "label": "Test scripts for Atcoder",
             "type": "shell",
-            "command": "pwd",
+            "command": "pwsh",
             "args": [
+                "oj_test.ps1",
                 "${fileDirname}/${fileBasename}",
                 "false"
             ],
-            "dependsOn": "Clean python code format",
+            // "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
             "label": "Submit scripts for Atcoder",
             "type": "shell",
-            "command": "pwsl ./oj_test.ps1",
+            "command": "pwsh",
             "args": [
+                "oj_test.ps1",
                 "${fileDirname}/${fileBasename}",
                 "true"
             ],
@@ -39,7 +41,6 @@
             "args": [
                 "${fileDirname}/${fileBasename}"
             ],
-            "dependsOn": "Into python venv",
         }
     ]
 }
