@@ -1,9 +1,6 @@
 {
     "name": "atcoder",
     "dockerFile": "Dockerfile",
-    "postCreateCommand": ". /venv/bin/activate && exec bash",
-    "overrideCommand": true,
-    "onCreateCommand": "",
     "customizations": {
         "vscode": {
             "extensions": [

@@ -11,23 +11,23 @@
         {
             "label": "Test scripts for Atcoder",
             "type": "shell",
-            "command": "${workspaceFolder}/oj_test.ps1",
+            "command": "pwd",
             "args": [
                 "${fileDirname}/${fileBasename}",
                 "false"
             ],
-            // "dependsOn": "Clean python code format",
+            "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
             "label": "Submit scripts for Atcoder",
             "type": "shell",
-            "command": "${workspaceFolder}/oj_test.ps1",
+            "command": "pwsl ./oj_test.ps1",
             "args": [
                 "${fileDirname}/${fileBasename}",
                 "true"
             ],
-            // "dependsOn": "Clean python code format",
+            "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {

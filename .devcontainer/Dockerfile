@@ -3,23 +3,21 @@ FROM debian:bookworm
 
 # PyPyのパスを環境変数として設定
 ENV PYPY_HOME=/opt/pypy3.10 \
-    PATH="/usr/local/pypy3.10/bin:$PATH"
+    PATH="/usr/local/pypy3.10/bin:/opt/pypy3.10/bin:$PATH"
 
-# 必要なツールとgcc, Pythonのインストール
+# 必要なツールとgccのインストール
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     wget \
+    dpkg \
+    libicu72 \
     ca-certificates \
     gnupg \
     gcc-12 \
-    python3 \
-    python3.11-venv \
-    python3-pip \
     git \
     vim \
     procps \
-    tree \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    tree
 
 # PyPy 3.10 のインストール
 RUN wget https://downloads.python.org/pypy/pypy3.10-v7.3.12-linux64.tar.bz2 && \
@@ -29,10 +27,22 @@ RUN wget https://downloads.python.org/pypy/pypy3.10-v7.3.12-linux64.tar.bz2 && \
     rm pypy3.10-v7.3.12-linux64.tar.bz2
 
 
+# pip
+RUN pypy3 -m ensurepip && \
+    pypy3 -m pip install -U pip wheel
+
+# powershellのインストール
+RUN wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.7/powershell-lts_7.4.7-1.deb_amd64.deb && \
+    dpkg -i powershell-lts_7.4.7-1.deb_amd64.deb && \
+    apt-get install -f -y && \
+    rm powershell-lts_7.4.7-1.deb_amd64.deb
+
 # online-judge-toolsとPythonで使うその他のライブラリのインストール
-RUN python3 -m venv venv && \
-    . venv/bin/activate && \
-    pip3 install online-judge-tools black
+RUN pypy3 -m pip install online-judge-tools black
+
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # 仮想環境を開き、シェルを上書きする
-CMD ["/bin/bash", "-c", ". /venv/bin/activate && exec bash"]
+CMD ["/bin/bash"]
