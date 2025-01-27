@@ -17,7 +17,7 @@
                 "${fileDirname}/${fileBasename}",
                 "false"
             ],
-            // "dependsOn": "Clean python code format",
+            "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
