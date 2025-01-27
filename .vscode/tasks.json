@@ -11,32 +11,35 @@
         {
             "label": "Test scripts for Atcoder",
             "type": "shell",
-            "command": "${workspaceFolder}\\oj_test.ps1",
+            "command": "${workspaceFolder}/oj_test.ps1",
             "args": [
-                "${fileDirname}\\${fileBasename}",
+                "${fileDirname}/${fileBasename}",
                 "false"
             ],
-            "dependsOn": "Clean python code format",
+            // "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
             "label": "Submit scripts for Atcoder",
             "type": "shell",
-            "command": "${workspaceFolder}\\oj_test.ps1",
+            "command": "${workspaceFolder}/oj_test.ps1",
             "args": [
-                "${fileDirname}\\${fileBasename}",
+                "${fileDirname}/${fileBasename}",
                 "true"
             ],
-            "dependsOn": "Clean python code format",
+            // "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
             "label": "Clean python code format",
             "type": "shell",
-            "command": "black",
+            "command":[
+                "black"
+            ],
             "args": [
-                "${fileDirname}\\${fileBasename}"
-            ]
+                "${fileDirname}/${fileBasename}"
+            ],
+            "dependsOn": "Into python venv",
         }
     ]
 }
