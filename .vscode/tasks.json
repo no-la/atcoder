@@ -9,22 +9,46 @@
             "command": "echo Hello"
         },
         {
-            "label": "Test scripts for Atcoder",
+            "label": "Test cpp scripts for Atcoder",
             "type": "shell",
-            "command": "${workspaceFolder}\\oj_test.ps1",
+            "command": "pwsh",
             "args": [
-                "${fileDirname}\\${fileBasename}",
+                "oj_test.ps1",
+                "${fileDirname}/${fileBasename}",
+                "false"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Test python scripts for Atcoder",
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "oj_test.ps1",
+                "${fileDirname}/${fileBasename}",
                 "false"
             ],
             "dependsOn": "Clean python code format",
             "problemMatcher": []
         },
         {
-            "label": "Submit scripts for Atcoder",
+            "label": "Submit cpp scripts for Atcoder",
             "type": "shell",
-            "command": "${workspaceFolder}\\oj_test.ps1",
+            "command": "pwsh",
             "args": [
-                "${fileDirname}\\${fileBasename}",
+                "oj_test.ps1",
+                "${fileDirname}/${fileBasename}",
+                "true"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Submit python scripts for Atcoder",
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "oj_test.ps1",
+                "${fileDirname}/${fileBasename}",
                 "true"
             ],
             "dependsOn": "Clean python code format",
@@ -33,10 +57,12 @@
         {
             "label": "Clean python code format",
             "type": "shell",
-            "command": "black",
+            "command":[
+                "black"
+            ],
             "args": [
-                "${fileDirname}\\${fileBasename}"
-            ]
+                "${fileDirname}/${fileBasename}"
+            ],
         }
     ]
 }

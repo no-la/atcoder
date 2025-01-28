@@ -38,7 +38,7 @@ function Test {
         Remove-Item $compiled_output -Force
     } elseif ($solved_file_extension -eq "py") {
         # Run tests using the provided Python script
-        oj test -c "py -3.10 $solved_file_path" -d $test_directory
+        oj test -c "pypy3 $solved_file_path" -d $test_directory
     } else {
         Write-Host "Unsupported file extension: $solved_file_extension"
     }
@@ -73,7 +73,7 @@ function Submmit{
         exit
     }
 
-    oj s $atcoder_url $solved_file_path -y -l $language_code
+    oj s $atcoder_url $solved_file_path -y --open -l $language_code
 }
 
 #####################################################################
@@ -91,27 +91,28 @@ if ($Args.Count -eq 0) {
 }
 
 # 問題の番号, 難易度, テストの結果を入れるファイル名
-$file_path_components = $Args[0] -split "\\"
-$solved_file = $file_path_components[-1]
+$solved_file = Split-Path $Args[0] -Leaf
+$solved_directory = Split-Path $Args[0] -Parent
 $solved_file_components = $solved_file -split "\."
-$problem_number = $file_path_components[-2].Substring(0, $file_path_components[-2].Length-1)
-$problem_alphabet = $file_path_components[-2].Substring($file_path_components[-2].Length-1, 1)  # Example: a
+$solved_folder = Split-Path $solved_directory -Leaf
+$contest_number = $solved_folder.Substring(0, $solved_folder.Length-1)  # Example: 158
+$problem_alphabet = $solved_directory.Substring($solved_directory.Length-1, 1).ToLower()  # Example: a
 $solved_file_name = $solved_file_components[0..($solved_file_components.Length-1)] -join "."  # 拡張子を除いたもの
 $solved_file_extension = $solved_file_components[-1]  # 拡張子
 Write-Host "solved_file : $solved_file"
-Write-Host "problem_number : $problem_number"
+Write-Host "contest_number : $contest_number"
 Write-Host "solved_file_name : $solved_file_name"
 Write-Host "solved_file_extension : $solved_file_extension"
 
 Write-Host "problem_alphabet : $problem_alphabet"
 
-$test_directory = (($file_path_components[0..($file_path_components.Length-2)]) -join "/") + "/samples/"
+$test_directory = Join-Path -Path $solved_directory -ChildPath "samples"
 Write-Host "test_directory : $test_directory"
 
-$atcoder_url = "https://atcoder.jp/contests/$problem_number/tasks/${problem_number}_$problem_alphabet"
-# if ([int]$problem_number.Substring(0, $problem_number.Length3) -le 14) {
+$atcoder_url = "https://atcoder.jp/contests/$contest_number/tasks/${contest_number}_$problem_alphabet"
+# if ([int]$contest_number.Substring(0, $contest_number.Length3) -le 14) {
 #     $problem_alphabet_num = [byte][char]::ToUpper($problem_alphabet) - [byte][char]'A' + 1
-#     $atcoder_url = "https://atcoder.jp/contests/$problem_number/tasks/${problem_number}_$problem_alphabet_num"
+#     $atcoder_url = "https://atcoder.jp/contests/$contest_number/tasks/${contest_number}_$problem_alphabet_num"
 # }
 Write-Host "atcoder_url : $atcoder_url"
 

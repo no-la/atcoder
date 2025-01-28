@@ -1,0 +1,17 @@
+{
+    "name": "atcoder",
+    "dockerFile": "Dockerfile",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "vscodevim.vim",
+                "tonybaloney.vscode-pets",
+                "kevinrose.vsc-python-indent",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    }
+}

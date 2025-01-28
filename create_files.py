@@ -3,17 +3,22 @@ import os
 
 def create_files(parent, number, dif):
     """create '<number><dif>.py' at parent"""
+    EXTENSIONS = ["py", "cpp"]
     created_files = []
     for d in dif:
-        folder_path = f"{parent}\\{number}{d}"
+        folder_path = os.path.join(parent, f"{number}{d}")
         if os.path.exists(folder_path):
             print(f"\033[31m{folder_path} already exits.\033[0m")
             continue
         os.makedirs(folder_path)
-        file_path = f"{folder_path}\\{number}{d}.py"
-        with open(file_path, "w", encoding="utf-8"):
-            pass
-        created_files.append(file_path)
+
+        file_pathes = [
+            os.path.join(folder_path, f"{number}{d}.{e}") for e in EXTENSIONS
+        ]
+        for file_path in file_pathes:
+            with open(file_path, "w", encoding="utf-8"):
+                pass
+            created_files.append(file_path)
         # print(f"{today}{d}.py")
     if created_files:
         print('-' * 15 + " created files " + '-' * 15, end="\n\n")
