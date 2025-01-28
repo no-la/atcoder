@@ -9,7 +9,18 @@
             "command": "echo Hello"
         },
         {
-            "label": "Test scripts for Atcoder",
+            "label": "Test cpp scripts for Atcoder",
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "oj_test.ps1",
+                "${fileDirname}/${fileBasename}",
+                "false"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Test python scripts for Atcoder",
             "type": "shell",
             "command": "pwsh",
             "args": [
@@ -21,7 +32,18 @@
             "problemMatcher": []
         },
         {
-            "label": "Submit scripts for Atcoder",
+            "label": "Submit cpp scripts for Atcoder",
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "oj_test.ps1",
+                "${fileDirname}/${fileBasename}",
+                "true"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Submit python scripts for Atcoder",
             "type": "shell",
             "command": "pwsh",
             "args": [

@@ -7,9 +7,10 @@
                 "ms-python.python",
                 "ms-python.black-formatter",
                 "vscodevim.vim",
-                "ms-vscode.cpptools",
                 "tonybaloney.vscode-pets",
-                "kevinrose.vsc-python-indent"
+                "kevinrose.vsc-python-indent",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-azuretools.vscode-docker"
             ]
         }
     }
