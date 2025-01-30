@@ -4,6 +4,8 @@ import os
 def create_files(parent, number, dif):
     """create '<number><dif>.py' at parent"""
     EXTENSIONS = ["py", "cpp"]
+    templates = get_templates(EXTENSIONS)
+
     created_files = []
     for d in dif:
         folder_path = os.path.join(parent, f"{number}{d}")
@@ -12,18 +14,28 @@ def create_files(parent, number, dif):
             continue
         os.makedirs(folder_path)
 
-        file_pathes = [
-            os.path.join(folder_path, f"{number}{d}.{e}") for e in EXTENSIONS
-        ]
-        for file_path in file_pathes:
-            with open(file_path, "w", encoding="utf-8"):
-                pass
+        for e in EXTENSIONS:
+            file_path = os.path.join(folder_path, f"{number}{d}.{e}")
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(templates[e])
             created_files.append(file_path)
         # print(f"{today}{d}.py")
     if created_files:
         print('-' * 15 + " created files " + '-' * 15, end="\n\n")
         print('\n'.join(created_files), end="\n\n")
         print('-' * 45)
+
+
+def get_templates(extensions=[]):
+    rev = {}
+
+    for e in extensions:
+        with open(
+            os.path.join("templates", f"template.{e}"), "r", encoding="UTF-8"
+        ) as f:
+            rev[e] = f.read()
+
+    return rev
 
 
 if __name__ == '__main__':
