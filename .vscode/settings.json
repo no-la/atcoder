@@ -15,6 +15,7 @@
     "*.html": "html",
     "iostream": "cpp",
     "ostream": "cpp",
-    "tuple": "cpp"
+    "tuple": "cpp",
+    "modint": "cpp"
   }
 }
