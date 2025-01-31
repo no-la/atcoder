@@ -40,39 +40,37 @@ def get_templates(extensions=[]):
 
 if __name__ == '__main__':
     contests = ["abc", "arc"]
-    _dif = ["A", "B", "C", "D", "E", "F"]
+    all_diffs = ["A", "B", "C", "D", "E", "F", "G"]
     is_exception_contest = False
     is_abc_or_arc_contest = False
     while True:
         try:
-            n = input("問題番号を入力してください\n")
-            if n == "q":
+            contest, *diff = input("問題番号を入力してください\n").split()
+
+            if not diff:  # 入力が無ければall_diffsで作る
+                diff = all_diffs
+
+            if contest == "q":
                 exit()
-            if n[0:3] not in contests:
+
+            # 一応、ABC, ARC以外のときは確認をする
+            if contest[0:3] not in contests:
                 # print(f"ABC, ARC以外のコンテストです {n[0:3]} not in {contests}")
-                is_exception_contest = input(f"{n}.pyを作成しますか？ y/n\n") == "y"
+                is_exception_contest = (
+                    input(f"{contest}{diff}を作成しますか？ y/n\n") == "y"
+                )
                 if is_exception_contest:
                     break
-            elif not n[3:6].isdigit():
-                print(f"問題番号は0埋めで3桁表示してください {n[3:6]}")
-            elif len(n) == 7 and n[6] not in _dif:
-                print(f"対応していない難易度です _dif={_dif}")
-            else:
-                is_abc_or_arc_contest = True
+            # ABC, ARCのフォーマットチェック
+            elif not contest[3:6].isdigit():
+                print(f"問題番号は0埋めで3桁表示してください {contest[3:6]}")
+            elif len(contest) == 7 and contest[6] not in all_diffs:
+                print(f"対応していない難易度です _dif={all_diffs}")
+            else:  # ここまで来たらABC, ARCのフォーマットはOK
                 break
         except ValueError:
-            print("(コンテストの種類3文字)(問題番号3文字)の形で入力してください")
+            print(
+                "(コンテストの種類3文字)(問題番号3文字) [diff1] [diff2] ... の形で入力してください"
+            )
 
-    if is_abc_or_arc_contest:
-        if len(n) == 7:
-            contest_name = n[:-1]
-            _dif = [n[-1]]
-        else:
-            contest_name = n
-    elif is_exception_contest:
-        contest_name = n[:-1]
-        _dif = [n[-1]]
-    else:
-        print("予期しないエラー")
-
-    create_files("contest", contest_name, _dif)
+    create_files("contest", contest, diff)
