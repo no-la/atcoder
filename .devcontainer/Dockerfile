@@ -40,6 +40,10 @@ RUN wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.7/power
 # online-judge-toolsとPythonで使うその他のライブラリのインストール
 RUN pypy3 -m pip install online-judge-tools black
 
+# ACLのダウンロード
+RUN git clone https://github.com/atcoder/ac-library.git /lib/ac-library
+ENV CPLUS_INCLUDE_PATH=/lib/ac-library:$CPLUS_INCLUDE_PATH
+
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
