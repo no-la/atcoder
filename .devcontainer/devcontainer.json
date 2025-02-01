@@ -10,7 +10,8 @@
                 "tonybaloney.vscode-pets",
                 "kevinrose.vsc-python-indent",
                 "ms-vscode.cpptools-extension-pack",
-                "ms-azuretools.vscode-docker"
+                "ms-azuretools.vscode-docker",
+                "wayou.vscode-todo-highlight"
             ]
         }
     }
