@@ -20,8 +20,8 @@ class RerootingDP:
         root: 根
         e: 単位元
         merge: 値をマージする関数
-        put_edge(val, v, w, c): valをなす部分木に辺v-w(重みc)を追加したときの演算
-        put_vertex(val, vertex): valをなす部分木に頂点vertexを追加したときの演算
+        put_edge(val, v, w, c): valをなすwの部分木に辺v-w(重みc)を追加したときの演算
+        put_vertex(val, vertex): valをなすwの部分木に頂点vertexを追加したときの演算
         """
         self.size = size
         self.edges = edges
@@ -49,8 +49,9 @@ class RerootingDP:
             v, *others = todo.pop()
             if v == -1:  # 戻るときに値を更新する
                 v, w, c = others
-                # TODO: put_edge, put_vertexの導入
-                self.dp[v] = self.merge(self.dp[v], self.dp[w] + c, c + D[w])
+                # NOTE: put_edge, put_vertexの導入
+                # self.dp[v] = self.merge(self.dp[v], self.dp[w] + c, c + D[w])
+                self.dp[v] = self.merge(self.dp[v], self.put_edge(self.dp[w], v, w, c))
                 continue
 
             for w, c in self.edges[v]:
@@ -75,15 +76,26 @@ class RerootingDP:
             # vにおける各値を計算する
             if vp is not None:
                 # 問題設定に応じて適切にマージする
-                # TODO: put_edge, put_vertexの導入
+
+                # NOTE: put_edge, put_vertexの導入
+                # inverse_dp[v] = self.merge(
+                #     inverse_dp[vp] + vc,
+                #     cumsum_right[vp][vi] + vc,
+                #     cumsum_left[vp][vi + 1] + vc,
+                #     vc + D[vp],
+                # )
                 inverse_dp[v] = self.merge(
-                    inverse_dp[vp] + vc,
-                    cumsum_right[vp][vi] + vc,
-                    cumsum_left[vp][vi + 1] + vc,
-                    vc + D[vp],
+                    self.put_edge(inverse_dp[vp], v, vp, vc),
+                    self.merge(
+                        self.put_edge(cumsum_right[vp][vi], v, vp, vc),
+                        self.put_edge(cumsum_left[vp][vi + 1], v, vp, vc),
+                    ),
                 )
-                # TODO: put_edge, put_vertexの導入
-                self.rerooted_dp[v] = self.merge(inverse_dp[v], self.dp[v])
+                # NOTE: put_edge, put_vertexの導入
+                # self.merge(inverse_dp[v], self.dp[v]), v
+                self.rerooted_dp[v] = self.put_vertex(
+                    self.merge(inverse_dp[v], self.dp[v]), v
+                )
             else:  # 根
                 inverse_dp[v] = self.e
                 self.rerooted_dp[v] = self.dp[v]
@@ -93,20 +105,26 @@ class RerootingDP:
             cumsum_right[v].append(self.e)
             for wi, (w, wc) in enumerate(self.directed_edges[v]):
                 todo.append((w, v, wi, wc))
-                # TODO: put_edge, put_vertexの導入
+                # NOTE: put_edge, put_vertexの導入
+                # cumsum_right[v].append(
+                #     self.merge(cumsum_right[v][-1], self.dp[w] + wc, wc + D[w])
+                # )
                 cumsum_right[v].append(
-                    self.merge(cumsum_right[v][-1], self.dp[w] + wc, wc + D[w])
+                    self.merge(cumsum_right[v][-1], self.put_edge(self.dp[w], v, w, wc))
                 )
             for wi, (w, wc) in enumerate(reversed(self.directed_edges[v])):
-                # TODO: put_edge, put_vertexの導入
+                # NOTE: put_edge, put_vertexの導入
+                # cumsum_left[v].append(
+                #     self.merge(cumsum_left[v][-1], self.dp[w] + wc, wc + D[w])
+                # )
                 cumsum_left[v].append(
-                    self.merge(cumsum_left[v][-1], self.dp[w] + wc, wc + D[w])
+                    self.merge(cumsum_left[v][-1], self.put_edge(self.dp[w], v, w, wc))
                 )
             cumsum_left[v].reverse()
 
 
 def put_edge(val, v, w, c):
-    return val + c
+    return max(val + c, c + D[w])
 
 
 def put_vertex(val, v):
@@ -127,7 +145,5 @@ D = list(map(int, input().split()))
 rdp = RerootingDP(
     size=N, edges=E, root=0, e=0, merge=max, put_edge=put_edge, put_vertex=put_vertex
 )
-
-
 print(*rdp.do(), sep="\n")
 # print(f"{dp=}", f"{directed_edges=}", sep="\n")
