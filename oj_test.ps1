@@ -91,14 +91,19 @@ if ($Args.Count -eq 0) {
 }
 
 # 問題の番号, 難易度, テストの結果を入れるファイル名
-$solved_file = Split-Path $Args[0] -Leaf
-$solved_directory = Split-Path $Args[0] -Parent
+$solved_file = split-path $args[0] -leaf
+$solved_directory = split-path $args[0] -parent # example: workspace/atcoder/contest/abc001A
 $solved_file_components = $solved_file -split "\."
-$solved_folder = Split-Path $solved_directory -Leaf
-$contest_number = $solved_folder.Substring(0, $solved_folder.Length-1)  # Example: 158
-$problem_alphabet = $solved_directory.Substring($solved_directory.Length-1, 1).ToLower()  # Example: a
-$solved_file_name = $solved_file_components[0..($solved_file_components.Length-1)] -join "."  # 拡張子を除いたもの
+$solved_folder = split-path $solved_directory -leaf # example: abc001A
+# $contest_number = $solved_folder.substring(0, $solved_folder.length-1)  # example: 158
+# $problem_alphabet = $solved_directory.substring($solved_directory.length-1, 1).tolower()  # example: a
+$success = $solved_folder -match "^[a-z]+[0-9]*"
+$contest_number = $Matches[0]  # example: 158
+$success = $solved_folder -match "[A-Z]+$"
+$problem_alphabet = $Matches[0].tolower()  # example: 158
+$solved_file_name = ($solved_file_components[0]) -join "."  # 拡張子を除いたもの
 $solved_file_extension = $solved_file_components[-1]  # 拡張子
+
 Write-Host "solved_file : $solved_file"
 Write-Host "contest_number : $contest_number"
 Write-Host "solved_file_name : $solved_file_name"
