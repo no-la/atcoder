@@ -3,7 +3,7 @@ using namespace std;
 
 using ll = long long;
 int N, A[100000], B[100000], deg[100000];
-vector<vector<int>> E(10000);
+vector<vector<int>> E(100000);
 
 bool seen[100000];
 
@@ -42,6 +42,11 @@ int main(){
     }
 
     dfs(leaf, 0);
+    if (ans.size() < N/2) {
+        ans.clear();
+        for (int i=0; i<100000; i++) seen[i] = false;
+        dfs(leaf, 1);
+    }
 
     for (int i=0; i<ans.size(); i++){
         cout << ans[i];
