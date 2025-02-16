@@ -17,6 +17,7 @@
     "ostream": "cpp",
     "tuple": "cpp",
     "modint": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "lazysegtree": "cpp"
   }
 }
