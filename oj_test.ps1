@@ -97,13 +97,14 @@ $solved_file_components = $solved_file -split "\."
 $solved_folder = split-path $solved_directory -leaf # example: abc001A
 # $contest_number = $solved_folder.substring(0, $solved_folder.length-1)  # example: 158
 # $problem_alphabet = $solved_directory.substring($solved_directory.length-1, 1).tolower()  # example: a
-$success = $solved_folder -match "^[a-z]+[0-9]*"
-$contest_number = $Matches[0]  # example: 158
-$success = $solved_folder -match "[A-Z]+$"
-$problem_alphabet = $Matches[0].tolower()  # example: 158
+$success = $solved_folder -cmatch "^[a-z]+[0-9]*"
+$contest_number = $Matches[0]  # example: abc158, dp, typical90
+$success = $solved_folder -cmatch "[A-Z]+$"
+$problem_alphabet = $Matches[0].tolower()  # example: a, b
 $solved_file_name = ($solved_file_components[0]) -join "."  # 拡張子を除いたもの
 $solved_file_extension = $solved_file_components[-1]  # 拡張子
 
+Write-Host "solved_folder : $solved_file"
 Write-Host "solved_file : $solved_file"
 Write-Host "contest_number : $contest_number"
 Write-Host "solved_file_name : $solved_file_name"
