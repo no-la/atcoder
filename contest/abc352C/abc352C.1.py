@@ -8,6 +8,8 @@ for _ in range(N):
     B.append(b)
     sa += a
 
+# N-1人の肩の高さの総和 + 残り1人の頭の高さ
+
 ans = 0
 for i in range(N):
     ans = max(ans, sa - A[i] + B[i])
